@@ -9,8 +9,8 @@ on:
 jobs:
   ssh:
     runs-on: ubuntu-latest  
-      steps:
-        - 
-          run: ssh -i ${{secrets.SSH_KEY}} ${{ secrets.SSH_USERNAME}}@${{secrets.SSH_HOST}} "hostname"
+    steps:
+      - 
+        run: ssh -i ${{secrets.SSH_KEY}} ${{ secrets.SSH_USERNAME}}@${{secrets.SSH_HOST}} "hostname"
           
 
