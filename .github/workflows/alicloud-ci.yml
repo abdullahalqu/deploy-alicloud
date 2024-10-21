@@ -31,15 +31,22 @@ jobs:
   ssh:
     runs-on: self-hosted 
     steps:
-      - name: Create SSH key file
+      - 
+        name: Create SSH key file
         run: |
           mkdir -p ~/.ssh &&
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/temp_key &&
           chmod 600 ~/.ssh/temp_key &&
           hostname
 
-    #   - name: Run SSH command
-    #     run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/temp_key ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "hostname"
+      - 
+        name: pull new build
+        run: |
+            ssh -i ~/.ssh/temp_key ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST1 }} "
+            cd /docker-compose-flask-app && 
+            git pull"
+
+
           
 
 
