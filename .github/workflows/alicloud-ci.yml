@@ -12,10 +12,10 @@ jobs:
     steps:
       - name: Create SSH key file
         run: |
-          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/temp_key
+          echo "${{ secrets.SSH_KEY }}" > ~/runner/.ssh/temp_key
           chmod 600 ~/.ssh/temp_key
 
       - name: Run SSH command
-        run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/temp_key ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "hostname"
+        run: ssh -o StrictHostKeyChecking=no -i ~/runner/.ssh/temp_key ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "hostname"
           
 
