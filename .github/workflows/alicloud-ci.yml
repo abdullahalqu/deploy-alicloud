@@ -1,3 +1,24 @@
+# name: gh-alicloud
+
+# on:
+#     push: 
+#       branches: 
+#         - main
+
+
+# jobs:
+#   ssh:
+#     runs-on: ubuntu-latest  
+#     steps:
+#       - name: Create SSH key file
+#         run: |
+#           mkdir -p ~/.ssh
+#           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/temp_key
+#           chmod 600 ~/.ssh/temp_key
+
+#       - name: Run SSH command
+#         run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/temp_key ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "hostname"
+          
 name: gh-alicloud
 
 on:
@@ -8,15 +29,17 @@ on:
 
 jobs:
   ssh:
-    runs-on: ubuntu-latest  
+    runs-on: self-hosted 
     steps:
       - name: Create SSH key file
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/temp_key
-          chmod 600 ~/.ssh/temp_key
+          mkdir -p ~/.ssh &&
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/temp_key &&
+          chmod 600 ~/.ssh/temp_key &&
+          hostname
 
-      - name: Run SSH command
-        run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/temp_key ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "hostname"
+    #   - name: Run SSH command
+    #     run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/temp_key ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "hostname"
           
+
 
