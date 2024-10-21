@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: Create SSH key file
         run: |
+          mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/temp_key
           chmod 600 ~/.ssh/temp_key
 
