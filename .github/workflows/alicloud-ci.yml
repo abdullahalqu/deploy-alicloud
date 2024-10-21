@@ -22,31 +22,26 @@
 name: gh-alicloud
 
 on:
-    push: 
-      branches: 
-        - main
-
+  push:
+    branches:
+      - main
 
 jobs:
   ssh:
-    runs-on: self-hosted 
+    runs-on: self-hosted
     steps:
-      - 
-        name: Create SSH key file
+      - name: Create SSH key file
         run: |
           mkdir -p ~/.ssh &&
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/temp_key &&
-          chmod 600 ~/.ssh/temp_key &&
-          hostname
+          chmod 600 ~/.ssh/temp_key
 
-      - 
-        name: pull new build
+      - name: Add SSH Host to Known Hosts
         run: |
-            ssh -i ~/.ssh/temp_key ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST1 }} "
-            cd /docker-compose-flask-app && 
-            git pull"
+          ssh-keyscan -H ${{ secrets.SSH_HOST1 }} >> ~/.ssh/known_hosts
 
-
-          
-
-
+      - name: Pull new build
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/temp_key ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST1 }} "
+          cd /docker-compose-flask-app &&
+          git pull"
